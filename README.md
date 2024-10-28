@@ -1,48 +1,49 @@
-GNSS and SIM Modem Performace Analyzer
-This project provides a two-part solution for logging and analyzing GNSS and SIM modem data:
+# GNSS and SIM Modem Performance Analyzer
 
-Part 1: Logging Script
+## Overview
 
-This script continuously logs data from GNSS and SIM modem modules to separate files.
+This project provides a comprehensive solution for logging and analyzing GNSS and SIM modem data. It consists of two Python scripts:
 
-Features:
+1. **Logging Script (dynamic_logging.py)**
+   - Continuously logs data from GNSS and SIM modem modules.
+   - Configures serial communication and parses data from both modules.
+   - Logs timestamped data to separate files.
 
-Selectable logging mode (GNSS and modem, GNSS only, modem only, or modem with flight mode simulation)
-Configures serial communication with GNSS and modem modules
-Parses UBX data frames from GNSS module
-Parses AT commands and responses from SIM modem module
-Logs timestamped data to separate files
-Part 2: Parsing Script
+2. **Parsing Script (dynamic_parsing.py)**
+   - Parses the generated log files to extract:
+     - Timestamps
+     - Location data
+     - Fix information
+     - Satellite details
+     - Signal quality (RSRP, RSSI, RSRQ, SINR)
+     - Network registration
+     - Socket information
+   - Merges the parsed data from both logs based on timestamps (optional filtering for empty SIM data).
+   - Optionally generates a map visualizing the GNSS track (requires the `folium` library).
+   - Exports the merged data to an Excel file.
 
-This script parses the generated log files and extracts relevant information for analysis.
+## How to Use
 
-Features:
+1. **Setting Up PyCharm**
+   - Create a new Python project in PyCharm.
+   - install necessary libraries using `pip install <library_name>`
+   - Copy the `dynamic_logging.py` and `dynamic_parsing.py` scripts into your project directory.
 
-Parses GNSS log files for timestamps, location data, fix information, satellite details, and CNo data
-Parses SIM modem log files for timestamps, signal quality (RSRP, RSSI, RSRQ, SINR), network registration, and socket information
-Merges parsed data from both logs based on timestamps (optional filtering for empty SIM data)
-Optionally generates a map visualizing the GNSS track (requires Folium library)
-Exports the merged data to an Excel file
-How to Use:
+2. **Running the Logging Script**
+   - Open `dynamic_logging.py` in PyCharm.
+   - Modify the `SELECT_LOGGING` variable to choose the desired logging mode.
+   - Run the script using the green "Run" button or press `Shift+F10`.
 
-1. Setting Up PyCharm
+3. **Running the Parsing Script**
+   - Open `dynamic_parsing.py` in PyCharm.
+   - Update the `GNSS_LOG_FILE` and `SIM_MODEM_LOG_FILE` paths to point to the generated log files.
+   - Adjust the `SELECT_PARSING` variable to choose the desired parsing mode.
+   - Run the script to process the log files and generate the output Excel file.
 
-Create a new Python project in PyCharm.
-Copy the logging script (e.g., gnss_modem_logger.py) and parsing script (e.g., gnss_modem_parser.py) into your project directory.
-2. Running the Logging Script
+## Additional Notes
 
-Open the logging script in PyCharm.
-Modify the SELECT_LOGGING variable at the beginning to choose the desired logging mode.
-Click the green "Run" button (play icon) or press Shift+F10 to execute the script. Data will be logged to separate files.
-3. Running the Parsing Script
+- Ensure your GNSS and SIM modem modules are connected and configured correctly.
+- The parsing logic might need adjustments for different GNSS or SIM modem log formats.
+- To enable map generation, install the `folium` library: `pip install folium`.
 
-Open the parsing script in PyCharm.
-Update the GNSS_LOG_FILE and SIM_MODEM_LOG_FILE paths to point to the generated log files created by the logging script.
-Adjust the SELECT_PARSING variable to choose the desired parsing mode (both GNSS and modem, GNSS only, modem only, or pump modem).
-Click the green "Run" button or press Shift+F10 to process the log files and generate the output Excel file.
-Additional Notes:
-
-Ensure the GNSS and SIM modem modules are connected and configured correctly.
-Modify the parsing logic if your GNSS or SIM modem log formats differ.
-Install folium (optional for maps): pip install folium in your project's terminal.
-This combined solution provides a powerful tool for monitoring and analyzing GNSS and SIM modem performance. By logging and parsing data, you can gain valuable insights into your system's behavior.
+By combining these scripts, you can effectively monitor and analyze the performance of your GNSS and SIM modem system.
